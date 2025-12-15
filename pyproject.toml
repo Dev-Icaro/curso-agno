@@ -1,0 +1,14 @@
+[project]
+name = "curso-agno"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "agno>=2.3.10",
+    "groq>=0.37.1",
+    "ipykernel>=7.1.0",
+    "python-dotenv>=1.2.1",
+    "tavily-python>=0.7.14",
+    "yfinance>=0.2.66",
+]
