@@ -1,6 +1,8 @@
 from agno.agent import Agent
 from agno.tools.yfinance import YFinanceTools
-from agno.models.groq import Groq
+
+# from agno.models.groq import Groq
+from agno.models.openai import OpenAIChat
 from agno.db.postgres import PostgresDb
 from dotenv import load_dotenv
 
@@ -21,15 +23,40 @@ db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 db = PostgresDb(db_url)
 
 agent = Agent(
-    model=Groq(id="llama-3.3-70b-versatile"),
+    model=OpenAIChat(id="gpt-5-nano"),
     tools=[YFinanceTools()],
-    instructions="Responda sempre utilizando uma tabela",
+    instructions="Voce é um especialista em investimentos e deve me ajudar consultando ações no mercado financeiro",
     db=db,
-    add_history_to_context=True,
+    # add_history_to_context=True,
+    enable_user_memories=True,
+    add_memories_to_context=True,
 )
 
+# agent.print_response(
+#     "Eu prefiro minhas respostas em tabelas",
+#     stream=True,
+#     session_id="session_id",
+#     user_id="preta_user",
+# )
+
+# agent.print_response(
+#     "Qual a cotação da Apple?",
+#     stream=True,
+#     session_id="session_id",
+#     user_id="preta_user",
+# )
+
+
+# agent.print_response(
+#     "Eu prefiro minhas resposta simples e diretas",
+#     stream=True,
+#     session_id="session_id",
+#     user_id="apple_user",
+# )
+
 agent.print_response(
-    "Quais foram as ações já cotadas durante nossa sessão?",
+    "Qual a cotação da Apple?",
     stream=True,
     session_id="session_id",
+    user_id="apple_user",
 )
